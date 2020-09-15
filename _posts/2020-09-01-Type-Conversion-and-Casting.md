@@ -1,5 +1,5 @@
 ---
-title: "类型转换和类型强制转换(Type Conversion and Casting)"
+title: "类型转换和类型强制转换"
 categories:
   - Notes
 tags:
@@ -7,8 +7,9 @@ tags:
 excerpt_separator: <!--more-->
 last_modified_at: 2020-09-01T04:36:07-08:00
 ---
+> **Type Conversion and Casting**
 > - 强烈建议在代码中坚持只使用新式的类型强制转换
-> - 
+> - 尽量少使用转型操作，尤其是`dynamic_cast`，耗时较高，会导致性能的下降，尽量使用其他方法替代。
 <!--more-->
 
 ## 赋值语句的类型转换
@@ -40,7 +41,7 @@ number = decimal;
 `static_cast<dst_type>(expression)` <br>
 ->  `strips_per_roll = static_cast<int>(roollLength / height)`
 
-> PS: 尽量少使用转型操作，尤其是dynamic_cast，耗时较高，会导致性能的下降，尽量使用其他方法替代。
+> PS: 尽量少使用转型操作，尤其是`dynamic_cast`，耗时较高，会导致性能的下降，尽量使用其他方法替代。
 
 ## 使用场景举例[^1-3]
 [^1]:[官方教程](http://www.cplusplus.com/doc/tutorial/typecasting/)
@@ -48,7 +49,7 @@ number = decimal;
 [^3]:[【C++】强制类型转换-static_cast、dynamic_cast、reinterpret_cast、和const_cast](https://blog.csdn.net/qq_40416052/article/details/82558451)
 
 ### `static_cast`
-static_cast可以在指向相关类的指针之间执行转换，不只是upcast（从pointer-to-derive 到 pointer-to-base），还可以进行向下转换（从pointer-to-base到pointer-to-derive ）。在运行时不执行检查，以保证被转换的对象实际上是目的地类型的完整对象。因此，由程序员来确保转换是安全的。另一方面，它不会产生动态转换的类型安全检查的开销。
+`static_cast` 可以在指向相关类的指针之间执行转换，不只是upcast（从pointer-to-derive 到 pointer-to-base），还可以进行向下转换（从pointer-to-base到pointer-to-derive ）。在运行时不执行检查，以保证被转换的对象实际上是目的地类型的完整对象。因此，由程序员来确保转换是安全的。另一方面，它不会产生动态转换的类型安全检查的开销。
 
 特点：
 
@@ -68,11 +69,11 @@ static_cast可以在指向相关类的指针之间执行转换，不只是upcast
   Derived * b = static_cast<Derived*>(a);
   ```
 ### `dynamic_cast`
-dynamiccast只能用于指针和对类（或void*）的引用。它的目的是为了确保类型转换的结果指向目标指针类型的有效完整对象。
+`dynamic_cast` 只能用于指针和对类（或`void*`）的引用。它的目的是为了确保类型转换的结果指向目标指针类型的有效完整对象。
 
-dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换（cross cast）。
+主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换（cross cast）。
 
-在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全。dynamic_cast是唯一无法由旧式语法执行的动作，也是唯一可能耗费重大运行成本的转型动作。
+在类层次间进行上行转换时，`dynamic_cast` 和 `static_cast` 的效果是一样的；在进行下行转换时，dynamic_cast具有类型检查的功能，比`static_cast`更安全。`dynamic_cast`是唯一无法由旧式语法执行的动作，也是唯一可能耗费重大运行成本的转型动作。
 
 特点：
 
@@ -141,3 +142,4 @@ reinterpret_cast可以将任何指针类型转换为任何其他指针类型，�
     return 0;
   }
   ```
+
